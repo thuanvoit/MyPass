@@ -1,0 +1,37 @@
+{% extends "mypass/layout.html" %} {% block body %}
+
+<div class="row">
+    <div class="col-lg-8 col-md-10 col-sm-11 mx-auto">
+        <ul class="list-group shadow">
+            <li class="list-group-item">
+
+
+                {% if data is None %}
+                    <h1 class="display-5">Nothing found</h1>
+                    
+                {% else %}
+                    <h1 class="display-5">{{ data.name }}</h1>
+                    <small class="text-muted">by {{data.user.first_name}} {{data.user.last_name}}</small>
+                    <br/>
+                    <small class="text-muted">Last edit on {{ data.date_edit }}</small>
+                    
+                    <hr/>
+
+                    <p class="lead">{{ data.note|linebreaksbr }}</p>
+                    
+                    
+
+                {% endif %}
+                
+
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    document.getElementById("staticBackdrop").remove();
+    document.getElementById("add-btn").remove();
+</script>
+
+{% endblock %}

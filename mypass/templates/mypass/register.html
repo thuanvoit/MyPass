@@ -1,0 +1,47 @@
+{% extends 'mypass/layout.html' %}
+
+{% block body %}
+
+{% if message %}
+<div class="alert alert-danger" role="alert">
+    {{ message }}
+</div>
+{% endif %}
+
+<div class="row d-flex justify-content-center flex-nowrap">
+    <form class="col-sm-10 col-md-8 col-lg-5" method="POST">
+  {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label">First Name</label>
+            <input type="text" class="form-control" name="input-first-name" placeholder="Enter First Name">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Last Name</label>
+            <input type="text" class="form-control" name="input-last-name" placeholder="Enter Last Name">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Username</label>
+            <input type="text" class="form-control" name="input-username" placeholder="Enter Username">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" name="input-email" placeholder="Enter Email">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-control" name="input-password" placeholder="Enter Password">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" name="reinput-password" placeholder="Enter Password Again">
+        </div>
+        <button type="submit" class="btn btn-primary">Sign up</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById("staticBackdrop").remove();
+    document.getElementById("add-btn").remove();
+</script>
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "mypass/layout.html" %} {% block body %}
+
+<div class="row">
+  <div class="col-lg-10 mx-auto">
+      <ul class="list-group shadow">
+        
+
+          <li class="list-group-item">
+            
+            <h1 class="display-5">
+              
+              <span class="badge bg-primary">
+                <i class="bi bi-shield-lock-fill"></i>
+              </span>
+              Welcome 
+              {% if user.is_authenticated %}
+              back {{ user.first_name }} {{ user.last_name }}
+              {% else %}
+              to <span class="badge bg-primary">My Pass</span>
+              {% endif %}
+              
+            </h1>
+          </li>
+
+          <li class="list-group-item">
+            
+            {% if user.is_authenticated %}
+            <p class="lead">Links</p>
+            <a role="button" class="btn btn-outline-primary rounded-pill" href="{% url 'password_view' %}">Passwords</a>
+            <a role="button" class="btn btn-outline-warning rounded-pill" href="{% url 'note_view' %}">Notes</a>
+            <a role="button" class="btn btn-outline-success rounded-pill" href="{% url 'address_view' %}">Addresses</a>
+            <a role="button" class="btn btn-outline-danger rounded-pill" href="{% url 'card_view' %}">Cards</a>
+            <a role="button" class="btn btn-outline-info rounded-pill" href="{% url 'bankaccount_view' %}">Bank Accounts</a>
+            {% else %}
+            <p class="lead">Please</p>
+            <a role="button" class="btn btn-outline-primary rounded-pill" href="{% url 'login' %}">Sign up</a>
+            <a role="button" class="btn btn-outline-secondary rounded-pill" href="{% url 'register' %}">Register</a>
+            {% endif %}
+            
+            <br>
+            <br>
+
+          </li>
+      </ul>
+  </div>
+</div>
+
+
+<script>
+  document.getElementById("staticBackdrop").remove();
+  document.getElementById("add-btn").remove();
+</script>
+
+{% endblock %}

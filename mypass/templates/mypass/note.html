@@ -1,0 +1,103 @@
+{% extends "mypass/layout.html" %} {% block body %}
+
+<div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+  {% for item in data %}
+  <div class="col">
+    <!-- START CARD -->
+
+    {% if item.favorite %}
+    <div class="card border-warning" id="card-border-{{item.id}}">
+    {% else %}
+    <div class="card" id="card-border-{{item.id}}">
+    {% endif %}
+
+    
+      <div class="card-body">
+    <h5 class="card-title">{{ item.name }}</h5>
+    <p class="card-text">{{ item.note|truncatewords:35 }}</p>
+    
+    </div>
+
+      <ul class="list-group list-group-flush">
+        
+        <li class="list-group-item" id="btn-fav-delete-group-{{item.id}}" style="display: none">
+          
+          <button type="button" class="btn btn-outline-danger rounded-pill btn-card-left" onclick="deleteIt('{{item.id}}', '{{pageCode}}')">
+            <i class="bi bi-trash"></i>
+          </button>
+          <button type="button" class="btn btn-outline-primary rounded-pill btn-card-left" onclick="editIt('{{item.id}}', '{{pageCode}}')" data-bs-target="#staticBackdrop" data-bs-toggle="modal">
+            <i class="bi bi-pen"></i>
+          </button>
+
+          <button type="button" class="btn btn-outline-secondary rounded-pill btn-card-right" onclick="hideTrash('{{item.id}}')">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </li>
+
+        <li class="list-group-item" id="btn-show-option-{{item.id}}">
+          <button type="button" onclick="starIt('{{item.id}}', '{{pageCode}}')" id="btn-star-{{item.id}}" class="btn btn-outline-warning rounded-pill btn-card-left">
+            {% if item.favorite %}
+              <i class="bi bi-star-fill"></i>
+            {% else %}
+              <i class="bi bi-star"></i>
+            {% endif %}
+          </button>
+
+          <button id="show-my-password-{{item.id}}" type="button" class="btn btn-outline-secondary rounded-pill btn-card-left" data-bs-target="#modalPasswordtoView-{{item.id}}" data-bs-toggle="modal">
+            <i class="bi bi-eye" id="ready-to-show-{{item.id}}"></i>
+          </button>
+
+          <button type="button" class="btn btn-outline-secondary rounded-pill btn-card-right" onclick="showOption('{{item.id}}')">
+            <i class="bi bi-three-dots"></i>
+          </button>
+
+        </li>
+      </ul>
+    </div>
+
+    <!-- END CARD -->
+
+<!-- Modal -->
+<div class="modal fade" id="modalPasswordtoView-{{item.id}}"  data-bs-backdrop="static"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{item.name}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>{{ item.note|linebreaksbr }}</p>
+        <div class="input-group mb-3">
+          <small class="text-muted">Last edit on {{ item.date_edit }}</small>
+        </div>
+
+        {% if item.share %}
+        
+        <hr/>
+        
+        
+        <label class="form-label">Viewable by anyone with this link</label>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" aria-describedby="button-addon2" disabled value="{{ request.get_host }}/share-note/{{ item.share_url }}">
+          <button class="btn btn-outline-secondary" type="button" id="button-link" onclick="copyContent('{{ request.get_host }}/share-note/{{ item.share_url }}')"><i class="bi bi-clipboard"></i></button>
+        </div>
+        {% endif %}
+        
+      </div>
+
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modal-close-{{item.id}}">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+  </div>
+  {% endfor %}
+</div>
+
+
+{% endblock %}

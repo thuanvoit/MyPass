@@ -1,0 +1,4 @@
+pyperclip==1.8.2
+clearbit==0.1.7
+urllib3==1.26.7
+cryptography==36.0.1

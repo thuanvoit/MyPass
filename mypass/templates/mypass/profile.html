@@ -1,0 +1,199 @@
+{% extends "mypass/layout.html" %} {% block body %}
+
+<div class="row">
+    <div class="col-lg-8 col-md-10 col-sm-11 mx-auto">
+        <ul class="list-group shadow">
+            <li class="list-group-item">
+                <h1 class="display-5">Profile</h1>
+                <p class="lead">
+                    First Name: {{ user.first_name }}
+                </p>
+                <p class="lead">
+                    Last Name: {{ user.last_name }}
+                </p>
+                <p class="lead">
+                    Username: @{{ user }}
+                </p>
+                <p class="lead">
+                    Email: {{ user.email }}
+                </p>
+            </li>
+            <li class="list-group-item">
+                <h1 class="display-5">Data</h1>
+                <p class="lead">
+                    Password: {{ size.password_len }}
+                </p>
+                <p class="lead">
+                    Note: {{ size.note_len }}
+                </p>
+                <p class="lead">
+                    Address: {{ size.address_len }}
+                </p>
+                <p class="lead">
+                    Card: {{ size.card_len }}
+                </p>
+                <p class="lead">
+                    Bank Account: {{ size.bankaccount_len }}
+                </p>
+            </li>
+            <li class="list-group-item">
+                
+                <p class="lead">
+                    Account Setting
+                </p>
+
+                <button type="button" class="btn btn-outline-primary rounded-pill btn-card-left" data-bs-toggle="modal"
+                    data-bs-target="#modelEditAccountInformation">
+                    Edit Profile
+                </button>
+
+                <button type="button" class="btn btn-outline-secondary rounded-pill btn-card-left" data-bs-toggle="modal"
+                    data-bs-target="#modelNewPassword">
+                    Change Password
+                </button>
+
+                <button type="button" class="btn btn-outline-danger rounded-pill btn-card-left" data-bs-toggle="modal"
+                data-bs-target="#modelDeleteAccount">
+                    Delete Account
+                </button>
+                <br><br>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modelNewPassword" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">New Password</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    onclick="resetForm()"></button>
+            </div>
+            <div class="modal-body" id="modal-body-new-password">
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label">Current Password</label>
+                        <input type="password" class="form-control" id="current-password" placeholder="Current Password" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">New Password</label>
+                        <input type="password" class="form-control" id="new-password" placeholder="New Password" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Confirmation</label>
+                        <input type="password" class="form-control" id="new-password-confirm"
+                            placeholder="Confirmation" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="resetForm()">
+                    Discard
+                </button>
+                <button type="submit" class="btn btn-primary" form="addForm" id="save-button"
+                    onclick="changePassword('{{ user }}')">
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- End modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="modelDeleteAccount" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Enter Password to Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    onclick="resetForm()"></button>
+            </div>
+            <div class="modal-body" id="modal-body-delete-account">
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label">Account Password</label>
+                        <input type="password" class="form-control" id="user-current-password" placeholder="Password" />
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-danger" form="addForm" id="save-button"
+                    onclick="deleteAccount('{{user}}')">
+                    Delete
+                </button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="resetForm()">
+                    Discard
+                </button>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- End modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="modelEditAccountInformation" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Edit Your Information</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    onclick="resetForm()"></button>
+            </div>
+            <div class="modal-body" id="modal-body-edit-info">
+                <form>
+
+                    <div class="mb-3">
+                        <label class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="user-current-first-name" placeholder=""  value="{{user.first_name}}"/>
+                    </div>
+
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="user-current-last-name" placeholder="" value="{{user.last_name}}"/>
+                    </div>
+
+                    
+
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="text" class="form-control" id="user-current-email" placeholder=""  value="{{user.email}}"/>
+                    </div>
+
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="resetForm()">
+                    Discard
+                </button>
+                <button type="submit" class="btn btn-primary" form="addForm" id="save-button"
+                    onclick="saveEditAccount('{{user}}')">
+                    Save
+                </button>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- End modal -->
+
+<script>
+    document.getElementById("staticBackdrop").remove();
+    document.getElementById("add-btn").remove();
+</script>
+{% endblock %}

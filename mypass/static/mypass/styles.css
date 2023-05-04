@@ -1,0 +1,63 @@
+
+body {
+    padding-bottom: 5rem;
+}
+.body {
+    margin-bottom: 2rem;
+}
+.card {
+    min-height: 270px;
+}
+
+.container-sm {
+    margin-top: 20px;
+}
+
+.add-btn {
+    font-size: 3.5rem;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    opacity: .5;
+    z-index: 999;
+}
+.add-btn:hover {
+    opacity: 1;
+}
+
+label {
+    margin-bottom: 0.1rem;
+}
+
+.my-modal-form-control {
+    margin-bottom: 0.5rem;
+}
+
+.btn-card-right {
+    float: right;
+}
+
+.btn-card-left {
+    float: left;
+    margin-right: 5px;
+}
+
+.card-img-top-in {
+    height: 128px;
+    width: 100%;
+    text-align: center;
+    padding: 1rem;
+}
+
+.card-top-img {
+    height: 100%; 
+    width:100%;
+    object-fit: contain;
+}
+
+
+@media screen and (max-width: 720px) {
+    .card {
+        min-height: auto;
+    }
+  }
